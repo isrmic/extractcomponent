@@ -845,13 +845,14 @@ var ATOMIC_START_TOKEN = array_to_hash([ "atom", "num", "string", "regexp", "nam
 function parse($TEXT, options) {
 
     options = defaults(options, {
-        strict         : false,
-        filename       : null,
-        toplevel       : null,
-        expression     : false,
-        html5_comments : true,
         bare_returns   : false,
+        cli            : false,
+        expression     : false,
+        filename       : null,
+        html5_comments : true,
         shebang        : true,
+        strict         : false,
+        toplevel       : null,
     });
 
     var S = {
@@ -2175,17 +2176,7 @@ function parse($TEXT, options) {
             next();
         }
 
-        if (is("punc", "{")) {
-            next();
-            imported_names = [];
-            while (!is("punc", "}")) {
-                imported_names.push(import_name());
-                if (is("punc", ",")) {
-                    next();
-                }
-            }
-            next();
-        }
+        imported_names = import_names(true);
 
         if (imported_names || imported_name) {
             expect_token("name", "from");
@@ -2236,15 +2227,101 @@ function parse($TEXT, options) {
         })
     }
 
+    function import_nameAsterisk(name) {
+        var start = S.token;
+        var foreign_name;
+
+
+        var end = prev();
+
+        name = name || new AST_SymbolImport({
+            name: '*',
+            start: start,
+            end: end,
+        });
+
+        foreign_name = new AST_SymbolImportForeign({
+            name: '*',
+            start: start,
+            end: end,
+        });
+
+        return new AST_NameImport({
+            start: start,
+            foreign_name: foreign_name,
+            name: name,
+            end: end,
+        })
+    }
+
+    function import_names(allow_as) {
+        var names;
+        if (is("punc", "{")) {
+            next();
+            names = [];
+            while (!is("punc", "}")) {
+                names.push(import_name());
+                if (is("punc", ",")) {
+                    next();
+                }
+            }
+            next();
+        } else if (is("operator", "*")) {
+            var name;
+            next();
+            if (allow_as && is("name", "as")) {
+                next();  // The "as" word
+                name = as_symbol(AST_SymbolImportForeign);
+            }
+            names = [import_nameAsterisk(name)];
+        }
+        return names;
+    }
+
     function export_() {
         var start = S.token;
         var is_default;
         var exported_value;
         var exported_definition;
+        var exported_names;
 
         if (is("keyword", "default")) {
             is_default = true;
             next();
+        }
+
+        exported_names = import_names(false);
+
+        if (exported_names) {
+            if (is("name", "from")) {
+                next();
+
+                var mod_str = S.token;
+                if (mod_str.type !== 'string') {
+                    unexpected();
+                }
+                next();
+
+                return new AST_Export({
+                    start: start,
+                    is_default: is_default,
+                    exported_names: exported_names,
+                    module_name: new AST_String({
+                        start: mod_str,
+                        value: mod_str.value,
+                        quote: mod_str.quote,
+                        end: mod_str,
+                    }),
+                    end: prev(),
+                });
+            } else {
+                return new AST_Export({
+                    start: start,
+                    is_default: is_default,
+                    exported_names: exported_names,
+                    end: prev(),
+                });
+            }
         }
 
         var is_definition =
@@ -2418,7 +2495,7 @@ function parse($TEXT, options) {
 
     function make_unary(ctor, op, expr) {
         if ((op == "++" || op == "--") && !is_assignable(expr))
-            croak("Invalid use of " + op + " operator");
+            croak("Invalid use of " + op + " operator", null, ctor === AST_UnaryPrefix ? expr.start.col - 1 : null);
         return new ctor({ operator: op, expression: expr });
     };
 
@@ -2467,6 +2544,7 @@ function parse($TEXT, options) {
     };
 
     function is_assignable(expr) {
+        if (options.cli) return true;
         return expr instanceof AST_PropAccess || expr instanceof AST_SymbolRef;
     };
 
