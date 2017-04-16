@@ -12,20 +12,21 @@
     "extract": "new.vuecomponent.js"
   },
   "dependencies": {
-    "babel-preset-env": "^1.2.2",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-babili": "0.0.12",
     "babel-core": "^6.24.0",
+    "babel-preset-babili": "0.0.12",
+    "babel-preset-env": "^1.2.2",
     "babel-preset-es2015": "^6.24.0",
+    "babel-preset-react": "^6.24.1",
+    "cheerio": "^0.22.0",
     "mkdirp": "^0.5.1",
     "uglify-js": "git+https://github.com/mishoo/UglifyJS2.git#harmony",
     "unzip": "^0.1.11"
   },
   "devDependencies": {
-      "babel-core": "^6.24.0",
-      "babel-preset-es2015": "^6.24.0",
-      "babel-preset-babili": "0.0.12",
-      "mkdirp": "^0.5.1",
-      "unzip": "^0.1.11"
+    "babel-core": "^6.24.0",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-babili": "0.0.12",
+    "mkdirp": "^0.5.1",
+    "unzip": "^0.1.11"
   }
 }
