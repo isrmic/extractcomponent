@@ -10,8 +10,29 @@ var execdir = process.cwd();
 
 switch(usr_arguments[0]){
 
-    case "newcomponent":
+    case "new":
 
+        if(usr_arguments[1] === undefined)
+            (console.log('empty arguments for component'), process.exit())
+        var capturevalues = usr_arguments[1].split(":");
+
+        var typecomponent = capturevalues[0];
+        var namecomponent = capturevalues[1];
+
+        if(namecomponent === undefined)
+            (console.log('name component is undefined '),process.exit())
+
+        var extension;
+        var componentload;
+
+        if(typecomponent === "blank")
+            (extension = ".html", componentload = __dirname + `/lib/.default_component`)
+        else
+            if(typecomponent === "react" || typecomponent === "vue")
+                (extension = `.${typecomponent}`, componentload = __dirname + `/lib/.default_component${typecomponent}`)
+        else
+            (console.log('Unrecognized component type'), process.exit())
+            
         var config;
 
         if(fs.existsSync(execdir + '/component.config.js'))
@@ -19,19 +40,20 @@ switch(usr_arguments[0]){
         else
             config = require("./lib/default.config.js");
 
-        var file = fs.readFileSync(__dirname + "/lib/.default_component", 'utf8');
+        var file = fs.readFileSync(componentload, 'utf8');
 
-        if(fs.existsSync("./" + config.components_folder + "/" + usr_arguments[1] + ".vue"))
+        if(fs.existsSync("./" + config.components_folder + "/" + namecomponent + extension))
             throw new Error('this component file already exist');
 
-        file = file.replace(/{{name}}/i, usr_arguments[1]);
+        file = file.replace(/{{name}}/i, namecomponent);
 
-        fs.writeFileSync("./" + config.components_folder + "/" + usr_arguments[1] + ".vue", file);
+        fs.writeFileSync("./" + config.components_folder + "/" + namecomponent + extension, file);
 
-        console.log("creation of component sucessful !!! ");
+        console.log("prepare component sucessful !!! ");
+
     break;
 
-    case "component":
+    case "extract":
         var extractcomponent = require('./lib/extractcomponent.js');
         extractcomponent();
     break;

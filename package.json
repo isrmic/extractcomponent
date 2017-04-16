@@ -1,6 +1,6 @@
 {
   "name": "extractcomponent",
-  "version": "1.1.62",
+  "version": "1.1.64",
   "description": "extract component vue of .vue and other files ",
   "main": "./lib/extractcomponent.js",
   "scripts": {
@@ -9,7 +9,7 @@
   "author": "isrmic",
   "license": "ISC",
   "bin": {
-    "extract": "new.vuecomponent.js"
+    "component": "opts.extractcomponent.js"
   },
   "dependencies": {
     "babel-core": "^6.24.0",

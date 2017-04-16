@@ -1,7 +1,5 @@
 <name>{{name}}</name>
 
-<forcomponent></forcomponent>
-
 <template>
 
 </template>
@@ -9,3 +7,7 @@
 <script>
 
 </script>
+
+<style>
+    
+</style>
