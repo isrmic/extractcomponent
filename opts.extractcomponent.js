@@ -24,15 +24,16 @@ switch(usr_arguments[0]){
 
         var extension;
         var componentload;
-
-        if(typecomponent === "blank")
+        if(typecomponent === "jade" || typecomponent === "pug")
+            (extension = "." + typecomponent, componentload = 'blank')
+        else if(typecomponent === "blank")
             (extension = ".html", componentload = __dirname + `/lib/.default_component`)
         else
             if(typecomponent === "react" || typecomponent === "vue")
                 (extension = `.${typecomponent}`, componentload = __dirname + `/lib/.default_component${typecomponent}`)
         else
             (console.log('Unrecognized component type'), process.exit())
-            
+
         var config;
 
         if(fs.existsSync(execdir + '/component.config.js'))
@@ -40,7 +41,7 @@ switch(usr_arguments[0]){
         else
             config = require("./lib/default.config.js");
 
-        var file = fs.readFileSync(componentload, 'utf8');
+        var file = componentload === 'blank' ? '' : fs.readFileSync(componentload, 'utf8');
 
         if(fs.existsSync("./" + config.components_folder + "/" + namecomponent + extension))
             throw new Error('this component file already exist');
