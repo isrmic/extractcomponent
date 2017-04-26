@@ -25,7 +25,7 @@ switch(usr_arguments[0]){
         var extension;
         var componentload;
         if(typecomponent === "jade" || typecomponent === "pug")
-            (extension = "." + typecomponent, componentload = 'blank')
+            (extension = "." + typecomponent, componentload = __dirname + "/lib/.default_componentpugjade")
         else if(typecomponent === "blank")
             (extension = ".html", componentload = __dirname + `/lib/.default_component`)
         else
