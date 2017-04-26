@@ -79,8 +79,8 @@ switch(usr_arguments[0]){
             if(!fs.existsSync(config.globalPath + "/" + config.build_stylesheet.save_folder))
                 mkdirp.sync(config.globalPath + "/" + config.build_stylesheet.save_folder);
 
-            fs.createReadStream(__dirname + '/lib/files_use/materialize.min.css').pipe(fs.createWriteStream(config.globalPath + "/" + config.build_stylesheet.save_folder + '/materialize.min.css'));
-            fs.createReadStream(__dirname + '/lib/files_use/fonts.zip').pipe(unzip.Extract({ path: config.globalPath }));
+            // fs.createReadStream(__dirname + '/lib/files_use/materialize.min.css').pipe(fs.createWriteStream(config.globalPath + "/" + config.build_stylesheet.save_folder + '/materialize.min.css'));
+            // fs.createReadStream(__dirname + '/lib/files_use/fonts.zip').pipe(unzip.Extract({ path: config.globalPath }));
 
             fs.readFile(__dirname + "/lib/files_use/index.html", 'utf8', (err, data) =>{
                 if(err)
