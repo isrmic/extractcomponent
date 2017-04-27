@@ -61,7 +61,7 @@
   Na linha de comando rode o comando `component extract`, e abra sua pagina index.html e veja que o resultado é o mesmo do componente vue , um hello world com a cor cyano escuro .
 
 # observações
-  * Alem do id do template pra poder setar qual elemento vai renderizar o componente , teve algo incomum no código se reparou bem , que foi o uso de __--:, --;__, isso devido a forma que é extraído o componente react , foi usado para servir de delimitador do escopo antes da função render antes de return , para uso de variaveis criação de elementos com condições etc ...
+  * Além do id do template pra poder setar qual elemento vai renderizar o componente , teve algo incomum no código se reparou bem , que foi o uso de __--:, --;__, isso devido a forma que é extraído o componente react , foi usado para servir de delimitador do escopo antes da função render antes de return , para uso de variáveis criação de elementos com condições etc ...
 
   * Você pode usar syntax jsx para manipular o dom com condições como em jsx normalmente no template, um exemplo seria :
     ```html
