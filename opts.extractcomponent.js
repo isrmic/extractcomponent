@@ -73,8 +73,8 @@ switch(usr_arguments[0]){
             if(!fs.existsSync(config.globalPath + "/" + config.build_Script.save_folder))
                 mkdirp.sync(config.globalPath + "/" + config.build_Script.save_folder);
 
-            fs.createReadStream(__dirname + '/lib/files_use/vue.min.js').pipe(fs.createWriteStream(config.globalPath + "/" + config.build_Script.save_folder + '/vue.min.js'));
-            fs.createReadStream(__dirname + '/lib/files_use/vue-router.min.js').pipe(fs.createWriteStream(config.globalPath + "/" + config.build_Script.save_folder + '/vue-router.min.js'));
+            // fs.createReadStream(__dirname + '/lib/files_use/vue.min.js').pipe(fs.createWriteStream(config.globalPath + "/" + config.build_Script.save_folder + '/vue.min.js'));
+            // fs.createReadStream(__dirname + '/lib/files_use/vue-router.min.js').pipe(fs.createWriteStream(config.globalPath + "/" + config.build_Script.save_folder + '/vue-router.min.js'));
 
             if(!fs.existsSync(config.globalPath + "/" + config.build_stylesheet.save_folder))
                 mkdirp.sync(config.globalPath + "/" + config.build_stylesheet.save_folder);
