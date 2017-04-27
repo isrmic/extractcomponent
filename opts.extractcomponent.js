@@ -61,7 +61,7 @@ switch(usr_arguments[0]){
 
     case "prepare":
         if(!fs.existsSync(execdir + '/component.config.js'))
-            (fs.createReadStream(__dirname + '/lib/default.config.js').pipe(fs.createWriteStream(execdir + "/component.config.js")), console.log("config generate, change the configs and run again 'extract prepar' "))
+            (fs.createReadStream(__dirname + '/lib/default.config.js').pipe(fs.createWriteStream(execdir + "/component.config.js")), console.log("config generate, change the configs and run again 'component prepare' "))
         else {
             var config = require(execdir + '/component.config.js');
 
@@ -86,7 +86,7 @@ switch(usr_arguments[0]){
                 if(err)
                     throw err;
                 var file = data.replace(/{name_script}/gi, config.build_Script.min).replace(/{name_style}/gi, config.build_stylesheet.name);
-                fs.writeFileSync(execdir + "/index.html", file);
+                fs.writeFileSync(config.globalPath + "/index.html", file);
 
             });
 
