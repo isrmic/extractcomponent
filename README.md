@@ -163,9 +163,15 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
   O conceito de extração de componente do react poderia ser bem utilizado nisto se tiver entendimento do que está fazendo.
   Note que a propriedade __name__ é atribuída como o nome do componente , com o qual será chamado depois.
 
+  * Pode-se separar os arquivos de extração , por exemplo , no arquivo de configuração a propriedade "file_nameToRender" aceita um array, e você pode especificar um pra vue outro pra react caso queira ou 2 diferentes só pra vue ou só react ex:
+  ```js
+    ...
+    file_nameToRender:["vuecomponent.js", "reactcomponent.js"]
+  ```
+
 # Importações
 
-  O foco desta ferramenta era somente facilitar e estudar extração de componentes, mas devido a necessidade e útilidade , foi feito um mini prótotipo de importação , importar componente, script, módulos (com limitações , está incompleto ainda a função).
+  O foco desta ferramenta era somente facilitar e estudar extração de componentes, mas devido a necessidade e útilidade , foi feito um mini protótipo de importação , importar componente, script, módulos (com limitações , está incompleto ainda a função).
   Pode-se importar scripts escrevendo em 3 formas diferentes :
   ```js
     import "path/to/script.js"
