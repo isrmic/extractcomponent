@@ -5,6 +5,7 @@ essas duas tecnologias, usando syntaxs como html, pug etc , para fácil manuten�
 
 ## Instalação
 ***abaixo é pressuposto que você saiba usar a linha de comando e tenha nodejs instalado na máquina.***
+
 Para instalar o extractcomponent simplesmente rode o comando na linha de comando : `npm install -g extractcomponent` e estaremos quase pronto para começar.
 É necessário que faça outras 3 instalações de módulos para o melhor funcionamento da ferramenta , rode na sua linha de comando o seguinte :
 `npm install --save babel-preset-es2015 babel-preset-babili babel-preset-react`, e agora estamos pronto para iniciar .
@@ -70,9 +71,10 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
       });
     ```
     certifique-se de rodar o comando de extração novamente caso fizer esta alteração para funcionar.
-    veja as dicas pois são importantes para um melhor desenvolvimento, e veja como escrever este mesmo componente em react [aqui](http://github.com/isrmic/extractcomponent/WriteReact.md).
+    veja as dicas pois são importantes para um melhor desenvolvimento, e veja como escrever este mesmo componente em react [aqui](https://github.com/isrmic/extractcomponent/blob/master/WriteReact.md).
 
 ## Dicas Importantes
+
   * As extensões .vue e .react são somente pra referência direta do tipo de componente que eles são , para ser extraído de forma correta. Por exemplo, se criarmos um componente num arquivo com a extensão .html para dizer se ele é vue ou react , basta dizer dentro de uma tag chamada __forcomponent__ o tipo do componente ex:
     ```html
       <forcomponent>react</forcomponent>
@@ -109,6 +111,7 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
       }
     ```
   * __Criar Componente__
+
     Para agilizar a criação do arquivo componente é recomendável usar o comando `component new type-component:name-component`, aonde "type-component" é o tipo do arquivo componente e "name-component" é o nome do componente.
     O argumento type-component pode receber 5 valores diferentes (__blank, vue, react, pug, jade__), todos geram arquivos com suas respectivas extensões como o do argumento , exceto o valor "blank" que gera um arquivo html, o que o difere dos demais como .pug .jade é o aproveitamento da syntax em um editor com syntax hilight html, e .vue .react especifica diretamente o tipo de componentes que são , sem a necessidade do uso da tag `<forcomponent></forcomponent>`, então ao rodar o comando : `component new jade:Compo` sera gerado um arquivo na pasta de componentes chamado "Compo.jade" e dentro já setado o nome para "Compo" tendo agora que só setar o tipo de componente(vue, react).
 
@@ -161,6 +164,7 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
   Note que a propriedade __name__ é atribuída como o nome do componente , com o qual será chamado depois.
 
 # Importações
+
   O foco desta ferramenta era somente facilitar e estudar extração de componentes, mas devido a necessidade e útilidade , foi feito um mini prótotipo de importação , importar componente, script, módulos (com limitações , está incompleto ainda a função).
   Pode-se importar scripts escrevendo em 3 formas diferentes :
   ```js
@@ -199,3 +203,6 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
   A importação funciona ou por nome do componente ou pelo nome do arquivo do componente , que no fim resulta no mesmo , e importar um componente como objeto dessa vez ainda é somente funciona com vue, não tente pode dar erro e não funcionar, mas pode ser que breve seja adicionado algo parecido se necessário para react afinal esta é uma ferramenta para estudos mas dá-se para construir aplicações , se eficientes vai de cada um como usa, a que nível ? não sei dizer rsrs .
 
 # Observação final
+
+  Esta é uma simples ferramenta desenvolvida para estudo próprio e para facilitar nas coisas que havia feito , como recentemente com essa ferramenta construí um app para professor achei que me atenderia porque queria algo simples, espero ser de utilidade.
+  Esta documentação pode ser reescrita afim de haver melhoras na explicação de como usar e citar novos recursos se houverem .
