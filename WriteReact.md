@@ -1,4 +1,4 @@
-## iniciando
+## iniciando  
   ***todos os comandos realizados, será na linha de comando com o diretório do seu projeto.***
   pressupondo que já escreveu um componente hello world em vue , agora vamos escrever este mesmo em react.
   Usando o mesmo comando passado vamos criar um componente , `component new blank:Teste`, vamos até este componente gerado e vamos começar a monta-lo.
@@ -34,7 +34,7 @@
   }
   --:      
       const message = "Hello World";
-  --;
+  :--
   </script>
 
   <style>
@@ -61,7 +61,7 @@
   Na linha de comando rode o comando `component extract`, e abra sua pagina index.html e veja que o resultado é o mesmo do componente vue , um hello world com a cor cyano escuro .
 
 # observações
-  * Além do id do template pra poder setar qual elemento vai renderizar o componente , teve algo incomum no código se reparou bem , que foi o uso de __--:, --;__, isso devido a forma que é extraído o componente react , foi usado para servir de delimitador do escopo antes da função render antes de return , para uso de variáveis criação de elementos com condições etc ...
+  * Além do id do template pra poder setar qual elemento vai renderizar o componente , teve algo incomum no código se reparou bem , que foi o uso de __--:, :--__, isso devido a forma que é extraído o componente react , foi usado para servir de delimitador do escopo antes da função render antes de return , para uso de variáveis criação de elementos com condições etc ...
 
   * Você pode usar syntax jsx para manipular o dom com condições como em jsx normalmente no template, um exemplo seria :
     ```html
@@ -89,7 +89,7 @@
     }
     --:      
         const message = "Hello World";
-    --;
+    :--
   style.
     .hw{
         color: darkcyan;

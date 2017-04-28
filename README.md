@@ -1,6 +1,8 @@
 # introdução
+
 O extractcomponent é um simples "extrator" de componentes para as libs vuejs e reactjs, construída baseada no SFC do vue para facilitar a criação de componentes com
 essas duas tecnologias, usando syntaxs como html, pug etc , para fácil manutenção e visualização do código .
+
 ***obs: para ver as tecnologias usadas, veja as dependências, consulte o package.json.***
 
 ## Instalação
@@ -11,12 +13,15 @@ Para instalar o extractcomponent simplesmente rode o comando na linha de comando
 `npm install --save babel-preset-es2015 babel-preset-babili babel-preset-react`, e agora estamos pronto para iniciar .
 
 # iniciando
-Vamos seguir alguns passos para não termos problemas (usaremos a linha de comando com o diretório setado para o do seu projeto ou aonde pretende fazer testes, portanto use um diretório novo unicamente para um teste).
-* ***1° preparar ambiente***
-  * rode o comando `component prepare`, será gerado um arquivo de configuração , nele você verá aonde será salvo script js , css , e seus respectivos nomes (é recomendável por agora deixar como está), rode novamente o comando `component prepare`, nisto será gerado alguns arquivos e criado pastas , onde __components__ é aonde ficará os nossos componentes, __main.js__ o arquivo que usaremos pra escrever os códigos de importação  dos componentes e/ou dependências, e uma pasta chamada __www__, aonde ficará o conteúdo do site, tudo isso é modificável pelo arquivo de configuração gerado, mas vamos deixar assim por enquanto.
-  >***obs: não é recomendável em fase de construção dos componentes e testes setar a opção minify para true, pois poderá influenciar no tempo de extração.***
+**Este inicio é um pouco detalhado demais, caso queira ver algo menos detalhado inicie por [aqui](https://github.com/isrmic/extractcomponent/blob/master/GuideFast.md) .**
 
-* ***escrever componente***
+Vamos seguir alguns passos para não termos problemas (usaremos a linha de comando com o diretório setado para o do seu projeto ou aonde pretende fazer testes, portanto use um diretório novo unicamente para um teste).
+* **1° preparar ambiente**
+  * rode o comando `component prepare`, será gerado um arquivo de configuração , nele você verá aonde será salvo script js , css , e seus respectivos nomes (é recomendável por agora deixar como está), rode novamente o comando `component prepare`, nisto será gerado alguns arquivos e criado pastas , onde __components__ é aonde ficará os nossos componentes, __main.js__ o arquivo que usaremos pra escrever os códigos de importação  dos componentes e/ou dependências, e uma pasta chamada __www__, aonde ficará o conteúdo do site, tudo isso é modificável pelo arquivo de configuração gerado, mas vamos deixar assim por enquanto.
+
+    >**obs: não é recomendável em fase de construção dos componentes e testes setar a opção minify para true, pois poderá influenciar no tempo de extração.**
+
+* **escrever componente**
   * Nós podemos escrever componentes em 5 tipos de arquivos (.html, .vue, .react, .pug, .jade), e a forma em que serão tratados é pouco diferente.
   * Para facilitar a criação de um componente vamos utilizar um comando pra isso, é semelhante a : `component new typecomponent:nome-componente`, nisto será gerado um arquivo para escrevermos nosso componente em nossa pasta __components__, então iremos usar um componente vue para exemplo, rode o comando `component new vue:teste-compo`.
   * vamos no nosso arquivo dentro da pasta componentes e vamos começar com algo simples, como um hello world.
@@ -62,7 +67,7 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
       </body>
     ```
     agora você pode ver isto rodando no navegador e deve aparecer seu componente funcionando.
-    **obs:** Caso queira pode instanciar o vue dentro do main.js de uma vez para facilitar , ficando assim:
+    **obs:** Caso queira pode instanciar o vue dentro do main.js de uma vez para facilitar poderá, ficando assim:
     ```js
       //main.js
       <{teste-compo}/>
@@ -113,17 +118,18 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
   * __Criar Componente__
 
     Para agilizar a criação do arquivo componente é recomendável usar o comando `component new type-component:name-component`, aonde "type-component" é o tipo do arquivo componente e "name-component" é o nome do componente.
-    O argumento type-component pode receber 5 valores diferentes (__blank, vue, react, pug, jade__), todos geram arquivos com suas respectivas extensões como o do argumento , exceto o valor "blank" que gera um arquivo html, o que o difere dos demais como .pug .jade é o aproveitamento da syntax em um editor com syntax hilight html, e .vue .react especifica diretamente o tipo de componentes que são , sem a necessidade do uso da tag `<forcomponent></forcomponent>`, então ao rodar o comando : `component new jade:Compo` sera gerado um arquivo na pasta de componentes chamado "Compo.jade" e dentro já setado o nome para "Compo" tendo agora que só setar o tipo de componente(vue, react).
+    O argumento type-component pode receber 1 valor, são 5 diferentes valores (__blank, vue, react, pug, jade__), todos geram arquivos com suas respectivas extensões como o do argumento(vue = .vue, react = .react), exceto o valor "blank" que gera um arquivo html, o que o difere dos demais como .pug .jade é o aproveitamento da syntax em um editor com syntax hilight html, e .vue .react especifica diretamente o tipo de componentes que são , sem a necessidade do uso da tag `<forcomponent></forcomponent>`, então ao rodar o comando : `component new jade:Compo` sera gerado um arquivo na pasta de componentes chamado "Compo.jade" e dentro já setado o nome para "Compo" tendo agora que só setar o tipo de componente(vue ou react) desta forma: `<forcomponent>react</forcomponent>`.
 
   * __Tag Style__
     Toda vez que é rodado o comando de extração , é lido os valores da tag style de todos os componentes da pasta de componentes e unificados em um único arquivo css que é exportado para a pasta css configurada nas configurações de extração, e se você repetir o nome de uma classe em um dos componentes , ela não vai ser sobrescrita mas sim duplicada no arquivo css exportado , e o que foi escrito na style de um componente pode ser usado chamando a classe por referencia em outro componente, neste caso a tag style tem útilidade somente para organizar melhor os componentes , não deixará nenhuma classe escrita exclusiva para o componente, então é sempre bom tomar cuidado para não cometer mancadas e escrever duas vezes a mesma classe.
 
-  * Componente Objeto
+  * __Componente Objeto__
     Os componentes vue , podem ser trazidos como referencia de objeto , para se poder usar o Vue-router, por exemplo:
-    ao se importar o componente nós escrevemos dessa forma -> `<{compo-vue}/>`, para se usar como objetos pode-se escrever de uma forma diferente para se usar no Vue-router -> `{ path:"/", component:<{{compo-index}}> },`, isto não funciona pra react, seria importado como da forma normal de se importar.
+    ao se importar o componente nós escrevemos dessa forma -> `<{compo-vue}/>`, para se usar como objetos pode-se escrever de uma forma diferente para se usar no Vue-router -> `{ path:"/", component:<{{compo-index}}> }` , isto não funciona pra react, seria importado como da forma normal de se importar.
 
   * __Pug/Jade__ Você pode sem precisar usar arquivos de extensões .pug ou .jade , setar o atributo lang do template principal e dos subcomponentes para "pug" ou "jade" para escreverem componentes usando pug/jade.
-  __obs:__ escreva da forma correta, pois pug é baseado em identação e tem algumas regrinhas um pouco limitadoras mas é bem útil , caso não conheça recomendo que leia a documentação caso queira escrever componentes com pug/jade.
+
+    >__obs:__ escreva da forma correta, pois pug é baseado em identação e tem algumas regrinhas um pouco limitadoras mas é bem útil , caso não conheça recomendo que leia a documentação caso queira escrever componentes com pug/jade.
 
 # subcomponentes
 
@@ -136,7 +142,7 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
         <script>
             data () {
                 return {
-                    msg:'this is a subcomponente'
+                    msg:'this is a subcomponent'
                 }
             }
         </script>
@@ -145,7 +151,7 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
         </style>
     </component>
   ```
-  Estes subcomponentes em vue são todos gerados da mesma forma como o componente principal podendo ser depois chamado desta forma `<sub-compo></sub-compo>` em todos os outros componentes do seu tipo(react ou vue), mas em react esses subcomponentes são como functions components e os principais como componentes de classe, podendo ser chamado os subcomponente dentro da template do componente principal ex:
+  Estes subcomponentes em vue são todos gerados da mesma forma como o componente principal podendo ser depois chamado desta forma `<sub-compo></sub-compo>` em todos os outros componentes do seu tipo(vue), mas em react esses subcomponentes são como functions components e os principais como componentes de classe, podendo ser chamado os subcomponente dentro da template do componente principal ex:
   ```html
     ...
     <template id = "reactapp">
@@ -168,6 +174,7 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
     ...
     file_nameToRender:["vuecomponent.js", "reactcomponent.js"]
   ```
+  Ambos serão lidos na hora da extração e No fim serão unificados para build.components.js
 
 # Importações
 
@@ -212,3 +219,4 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
 
   Esta é uma simples ferramenta desenvolvida para estudo próprio e para facilitar nas coisas que havia feito , como recentemente com essa ferramenta construí um app para professor achei que me atenderia porque queria algo simples, espero ser de utilidade.
   Esta documentação pode ser reescrita afim de haver melhoras na explicação de como usar e citar novos recursos se houverem .
+  Foi desenvolvida com pouco conhecimento nas duas tecnologias (vue, react) e poderá sofrer alterações futuras, devido a boas práticas e uma forma melhor de desenvolver pra essas tecnologias usando tecnicas que os desenvolvedores geralmente usam.

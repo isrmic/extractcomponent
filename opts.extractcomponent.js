@@ -85,7 +85,7 @@ switch(usr_arguments[0]){
             fs.readFile(__dirname + "/lib/files_use/index.html", 'utf8', (err, data) =>{
                 if(err)
                     throw err;
-                var file = data.replace(/{name_script}/gi, config.build_Script.min).replace(/{name_style}/gi, config.build_stylesheet.name);
+                var file = data.replace(/{name_script}/gi, config.build_Script.name).replace(/{name_style}/gi, config.build_stylesheet.name);
                 fs.writeFileSync(config.globalPath + "/index.html", file);
 
             });
