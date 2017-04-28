@@ -3,8 +3,11 @@
   Para instalar rode o comando `npm install -g extractcomponent` .
 
   É necessário instalar outros 3 pacotes, veja abaixo.
+
   para react:     `npm install --save babel-preset-react`
+
   para es2015:    `npm install --save babel-preset-es2015`
+
   para minificar: `npm install --save babel-preset-babili`
 
 # Iniciando
@@ -59,6 +62,7 @@
     Após isso rode o comando `component extract`.
     Pronto , se você abrir o arquivo index.html diretamente ou por um servidor estático , você poderá ver o funcionamento do componente.
     Há várias formas de fazer um componente e tem algumas coisas que são importantes saber para funcionarem da forma que espera, por isso recomendo que veja as dicas para que possa fazer tudo corretamente.
+
     __OBS: você deverá carregar o vuejs no index.html para funcionar corretamente.__
 
   * __react__
@@ -100,5 +104,7 @@
     ...
     ```
     Agora rode o comando `component extract`.
+
     Pronto pode testar e ver o seu componente funcionando normalmente.
+    
     Para mais detalhes do componente react veja [aqui](https://github.com/isrmic/extractcomponent/blob/master/WriteReact.md) .
