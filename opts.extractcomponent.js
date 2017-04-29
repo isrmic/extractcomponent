@@ -96,6 +96,11 @@ switch(usr_arguments[0]){
         }
     break;
 
+    case "server":
+        var startserver = require('./lib/server.js');
+        startserver();
+    break;
+
     default:
         console.log("command inválid");
 }
