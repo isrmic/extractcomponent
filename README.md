@@ -176,6 +176,27 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
   ```
   Ambos serão lidos na hora da extração e No fim serão unificados para build.components.js
 
+  Há tabém uma opção que poderá ser útil na hora de escrever componentes , caso vc queira que um desses arquivos passe por uma compilação final antes de serem unificados em um único arquivo , pode-se fazer o seguinte pelas configurações:
+
+  ```js
+    final_compiler:{
+        presets:[
+          "es2015"
+        ]
+    }
+  ```
+
+  Isso fará com que ambos arquivos passem por essa compilação final, caso queira um arquivo especifico :
+  ```js
+    final_compiler:{
+        // presets:[
+        //   "es2015"
+        // ],
+        files:{
+            'reactcomponent.js':["es2015","react"]
+        }
+    }
+  ```
 # Importações
 
   O foco desta ferramenta era somente facilitar e estudar extração de componentes, mas devido a necessidade e útilidade , foi feito um mini protótipo de importação , importar componente, script, módulos (com limitações , está incompleto ainda a função).
@@ -211,10 +232,51 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
     import {<Compo/>}
     import {<my-compo/>}
     import Componente from {<my-compo/>}
-    import Compo from test-compo.pug
-  ```
-  A importação funciona ou por nome do componente ou pelo nome do arquivo do componente , que no fim resulta no mesmo , e importar um componente como objeto dessa vez ainda é somente funciona com vue, não tente pode dar erro e não funcionar, mas pode ser que breve seja adicionado algo parecido se necessário para react afinal esta é uma ferramenta para estudos mas dá-se para construir aplicações , se eficientes vai de cada um como usa, a que nível ? não sei dizer rsrs .
+    import Compo from test-compo.pug //.pug,.jade,.html,.vue/.react
+    import Compo from "./App.jsx"
+  ```  
+  Em alguns casos de importação como ao importar um arquivo jsx teria de de indicar o que está exportando ex:
+  ```js
+  //App.jsx
+  import { Component } from "react"
+  class App extends Component{
+      render(){
+          return (
+              <div>Componente a ser exportado, funct component <Sub content = "this is a content" /> </div>
+          );
+      }
+  }
+  function Sub (props) {
+      return <div>{props.content}</div>
+  }
+  //1°
+  export default App; // == module.export = App;
+  //2°
+  export {App, Sub};
+  //3°
+  export App;
+  export Sub;
 
+  //main.js
+  //1°
+  import App from "./App.jsx"
+  //2° && 3°
+  import { App, Sub } from "./App.jsx" // component is App && Sub
+  import App from "./App.jsx" // component is App.App && App.Sub  
+  ```
+  A importação funciona ou por nome do componente (caso importado usando {<name-component/>}) ou pelo nome do arquivo do componente , que no fim resulta no mesmo. Pode ser usado para um especifico script que você criou também como no exemplo do jsx servira pra um arquivo js também, desde que siga as instruções corretamente.
+  >>OBS: este sistema de importações está em fase de estudo e foi feito para estudo , podendo conter falhas, não foi usando um pacote secundário para fazê-las.
+
+  __Dica__: Pode ser que na hora de importar um modulo da node_modules , tenha que especificar manualmente o diretório , há duas formas de fazer isso , importando direto pelo diretório : `import Module from "node_modules/module/index.js"`, ou setando no arquivo de configuração , ficando da seguinte forma :
+
+  ```js
+    ...
+    load_modules:{
+        'name-module':{
+            path:'name-module/dist/index.js'
+        }
+    }
+  ```
 # Observação final
 
   Esta é uma simples ferramenta desenvolvida para estudo próprio e para facilitar nas coisas que havia feito , como recentemente com essa ferramenta construí um app para professor achei que me atenderia porque queria algo simples, espero ser de utilidade.
