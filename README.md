@@ -121,7 +121,7 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
     O argumento type-component pode receber 1 valor, são 5 diferentes valores (__blank, vue, react, pug, jade__), todos geram arquivos com suas respectivas extensões como o do argumento(vue = .vue, react = .react), exceto o valor "blank" que gera um arquivo html, o que o difere dos demais como .pug .jade é o aproveitamento da syntax em um editor com syntax hilight html, e .vue .react especifica diretamente o tipo de componentes que são , sem a necessidade do uso da tag `<forcomponent></forcomponent>`, então ao rodar o comando : `component new jade:Compo` sera gerado um arquivo na pasta de componentes chamado "Compo.jade" e dentro já setado o nome para "Compo" tendo agora que só setar o tipo de componente(vue ou react) desta forma: `<forcomponent>react</forcomponent>`.
 
   * __Tag Style__
-    Toda vez que é rodado o comando de extração , é lido os valores da tag style de todos os componentes da pasta de componentes e unificados em um único arquivo css que é exportado para a pasta css configurada nas configurações de extração, e se você repetir o nome de uma classe em um dos componentes , ela não vai ser sobrescrita mas sim duplicada no arquivo css exportado , e o que foi escrito na style de um componente pode ser usado chamando a classe por referencia em outro componente, neste caso a tag style tem útilidade somente para organizar melhor os componentes , não deixará nenhuma classe escrita exclusiva para o componente, então é sempre bom tomar cuidado para não cometer mancadas e escrever duas vezes a mesma classe.
+    Toda vez que é rodado o comando de extração , é lido os valores da tag style de todos os componentes da pasta de componentes e unificados em um único arquivo css que é exportado para a pasta css configurada nas configurações de extração, e se você repetir o nome de uma classe em um dos componentes , ela não vai ser sobrescrita mas sim duplicada no arquivo css exportado , e o que foi escrito na style de um componente pode ser usado chamando a classe por referencia em outro componente, neste caso a tag style tem utilidade somente para organizar melhor os componentes , não deixará nenhuma classe escrita exclusiva para o componente, então é sempre bom tomar cuidado para não cometer mancadas e escrever duas vezes a mesma classe.
 
   * __Componente Objeto__
     Os componentes vue , podem ser trazidos como referencia de objeto , para se poder usar o Vue-router, por exemplo:
@@ -129,7 +129,7 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
 
   * __Pug/Jade__ Você pode sem precisar usar arquivos de extensões .pug ou .jade , setar o atributo lang do template principal e dos subcomponentes para "pug" ou "jade" para escreverem componentes usando pug/jade.
 
-    >__obs:__ escreva da forma correta, pois pug é baseado em identação e tem algumas regrinhas um pouco limitadoras mas é bem útil , caso não conheça recomendo que leia a documentação caso queira escrever componentes com pug/jade.
+    >__obs:__ escreva da forma correta, pois pug é baseado em identação e tem algumas regrinhas um pouco limitadoras mas é bem util , caso não conheça recomendo que leia a documentação caso queira escrever componentes com pug/jade.
 
 # subcomponentes
 
@@ -176,7 +176,7 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
   ```
   Ambos serão lidos na hora da extração e No fim serão unificados para build.components.js
 
-  Há tabém uma opção que poderá ser útil na hora de escrever componentes , caso vc queira que um desses arquivos passe por uma compilação final antes de serem unificados em um único arquivo , pode-se fazer o seguinte pelas configurações:
+  Há tmabém uma opção que poderá ser util na hora de escrever componentes , caso vc queira que um desses arquivos passe por uma compilação final antes de serem unificados em um único arquivo , pode-se fazer o seguinte pelas configurações:
 
   ```js
     final_compiler:{
@@ -199,7 +199,7 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
   ```
 # Importações
 
-  O foco desta ferramenta era somente facilitar e estudar extração de componentes, mas devido a necessidade e útilidade , foi feito um mini protótipo de importação , importar componente, script, módulos (com limitações , está incompleto ainda a função).
+  O foco desta ferramenta era somente facilitar e estudar extração de componentes, mas devido a necessidade e utilidade , foi feito um mini protótipo de importação , importar componente, script, módulos (com limitações , está incompleto ainda a função).
   Pode-se importar scripts escrevendo em 3 formas diferentes :
   ```js
     import "path/to/script.js"
