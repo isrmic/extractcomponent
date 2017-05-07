@@ -1,6 +1,6 @@
 {
   "name": "extractcomponent",
-  "version": "1.1.83",
+  "version": "1.1.85",
   "description": "extract component vue and react with a dif syntax",
   "main": "./lib/extractcomponent.js",
   "scripts": {
