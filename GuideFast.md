@@ -26,9 +26,11 @@
           </div>
       </template>
       <script>
-          data () {
-              return {
-                  message:'Hello World'
+          component => {
+              data () {
+                  return {
+                      message:'Hello World'
+                  }
               }
           }
       </script>
@@ -76,11 +78,13 @@
               {this.state.hello}
           </div>
       </template>
-      <script>
-          constructor(props){
-              super(props);
-              this.state = {hello:'Hello World'};
-          }          
+      <script>          
+          component => {
+              constructor(props){
+                  super(props);
+                  this.state = {hello:'Hello World'};
+              }          
+          }
       </script>
       <style>
           .content{
@@ -106,5 +110,5 @@
     Agora rode o comando `component extract`.
 
     Pronto pode testar e ver o seu componente funcionando normalmente.
-    
+
     Para mais detalhes do componente react veja [aqui](https://github.com/isrmic/extractcomponent/blob/master/WriteReact.md) .

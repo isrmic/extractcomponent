@@ -36,9 +36,11 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
       </template>
 
       <script>
-        data () {
-            return {
-              message:'hello world'
+        component => {
+            data () {
+                return {
+                  message:'hello world'
+                }
             }
         }
       </script>
@@ -97,22 +99,27 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
   * __Tag Script__
    Dentro da tag script no componente vue ele vai ser extraído como um objeto e não como um simples código javascript, então é necessário separar por virgulas as suas propriedades por exemplo:
     ```js
-      data () {
-          return {
-              counter:0
-          }
-      },
-      methods:{
-          methodTest(){
-              this.counter++;
-          }
+      component => {
+        data () {
+            return {
+                counter:0
+            }
+        },
+        methods:{
+            methodTest(){
+                this.counter++;
+            }
+        }
       }
+
     ```
     Para componentes react este conceito muda um pouco , ele seria extraído como o conteúdo escrito depois da declaração de classe e antes da render function, ex:
     ```js
-      constructor(props){
-          super(props);
-          this.state = {value:''};
+      component => {
+        constructor(props){
+            super(props);
+            this.state = {value:''};
+        }
       }
     ```
   * __Criar Componente__
@@ -140,11 +147,13 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
             <div> {{msg}} </div>
         </template>
         <script>
-            data () {
-                return {
-                    msg:'this is a subcomponent'
-                }
-            }
+            component => {
+              data () {
+                  return {
+                      msg:'this is a subcomponent'
+                  }
+              }
+            }            
         </script>
         <style>
             /* folha de estilo */
