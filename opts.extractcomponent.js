@@ -4,103 +4,114 @@ var fs = require('fs');
 var mkdirp = require('mkdirp');
 var unzip = require('unzip');
 
-var usr_arguments = process.argv.slice(2);
+var usr_arguments_cli = process.argv.slice(2);
 var execdir = process.cwd();
 
+(function () {
 
-switch(usr_arguments[0]){
+    let command = usr_arguments_cli[0];
 
-    case "new":
+    if(command === "new" || command === "-n")
+        newComponent(usr_arguments_cli);
+    else if(command === "prepare" || command === "init" || command === "-p")
+        prepare();
+    else if(command === "extract" || command === "-e")
+        extract();
+    else if(command === "server" || command === "-S" || command === "-s")
+        server(usr_arguments_cli.slice(1));
 
-        if(usr_arguments[1] === undefined)
-            (console.log('empty arguments for component'), process.exit())
-        var capturevalues = usr_arguments[1].split(":");
+})();
 
-        var typecomponent = capturevalues[0];
-        var namecomponent = capturevalues[1];
+function newComponent (usr_arguments) {
 
-        if(namecomponent === undefined)
-            (console.log('name component is undefined '),process.exit())
+  if(usr_arguments[1] === undefined)
+      (console.log('empty arguments for component'), process.exit())
+  var capturevalues = usr_arguments[1].split(":");
 
-        var extension;
-        var componentload;
-        if(typecomponent === "jade" || typecomponent === "pug")
-            (extension = "." + typecomponent, componentload = __dirname + "/lib/.default_componentpugjade")
-        else if(typecomponent === "blank")
-            (extension = ".html", componentload = __dirname + `/lib/.default_component`)
-        else
-            if(typecomponent === "react" || typecomponent === "vue")
-                (extension = `.${typecomponent}`, componentload = __dirname + `/lib/.default_component${typecomponent}`)
-        else
-            (console.log('Unrecognized component type'), process.exit())
+  var typecomponent = capturevalues[0];
+  var namecomponent = capturevalues[1];
 
-        var config;
+  if(namecomponent === undefined)
+      (console.log('name component is undefined '),process.exit())
 
-        if(fs.existsSync(execdir + '/component.config.js'))
-            config = require(execdir + '/component.config.js');
-        else
-            config = require("./lib/default.config.js");
+  var extension;
+  var componentload;
+  if(typecomponent === "jade" || typecomponent === "pug")
+      (extension = "." + typecomponent, componentload = __dirname + "/lib/.default_componentpugjade")
+  else if(typecomponent === "blank")
+      (extension = ".html", componentload = __dirname + `/lib/.default_component`)
+  else
+      if(typecomponent === "react" || typecomponent === "vue")
+          (extension = `.${typecomponent}`, componentload = __dirname + `/lib/.default_component${typecomponent}`)
+  else
+      (console.log('Unrecognized component type'), process.exit())
 
-        var file = componentload === 'blank' ? '' : fs.readFileSync(componentload, 'utf8');
+  var config;
 
-        if(fs.existsSync("./" + config.components_folder + "/" + namecomponent + extension))
-            throw new Error('this component file already exist');
+  if(fs.existsSync(execdir + '/component.config.js'))
+      config = require(execdir + '/component.config.js');
+  else
+      config = require("./lib/default.config.js");
 
-        file = file.replace(/{{name}}/i, namecomponent);
+  var file = componentload === 'blank' ? '' : fs.readFileSync(componentload, 'utf8');
 
-        fs.writeFileSync("./" + config.components_folder + "/" + namecomponent + extension, file);
+  if(fs.existsSync("./" + config.components_folder + "/" + namecomponent + extension))
+      throw new Error('this component file already exist');
 
-        console.log("prepare component sucessful !!! ");
+  file = file.replace(/{{name}}/i, namecomponent);
 
-    break;
+  fs.writeFileSync("./" + config.components_folder + "/" + namecomponent + extension, file);
 
-    case "extract":
-        var extractcomponent = require('./lib/extractcomponent.js');
-        extractcomponent();
-    break;
+  console.log("prepare component sucessful !!! ");
+}
 
-    case "prepare":
-        if(!fs.existsSync(execdir + '/component.config.js'))
-            (fs.createReadStream(__dirname + '/lib/default.config.js').pipe(fs.createWriteStream(execdir + "/component.config.js")), console.log("config generate, change the configs and run again 'component prepare' "))
-        else {
-            var config = require(execdir + '/component.config.js');
+function extract () {
 
-            !fs.existsSync(config.components_folder) ? mkdirp.sync(config.components_folder) : null;
+    var extractcomponent = require('./lib/extractcomponent.js');
+    extractcomponent();
 
-            if(!fs.existsSync(config.globalPath))
-                mkdirp.sync(config.globalPath);
+}
 
-            if(!fs.existsSync(config.globalPath + "/" + config.build_Script.save_folder))
-                mkdirp.sync(config.globalPath + "/" + config.build_Script.save_folder);
+function prepare () {
 
-            // fs.createReadStream(__dirname + '/lib/files_use/vue.min.js').pipe(fs.createWriteStream(config.globalPath + "/" + config.build_Script.save_folder + '/vue.min.js'));
-            // fs.createReadStream(__dirname + '/lib/files_use/vue-router.min.js').pipe(fs.createWriteStream(config.globalPath + "/" + config.build_Script.save_folder + '/vue-router.min.js'));
+    if(!fs.existsSync(execdir + '/component.config.js'))
+        (fs.createReadStream(__dirname + '/lib/default.config.js').pipe(fs.createWriteStream(execdir + "/component.config.js")), console.log("config generate, change the configs and run again 'component prepare' "))
+    else {
+        var config = require(execdir + '/component.config.js');
 
-            if(!fs.existsSync(config.globalPath + "/" + config.build_stylesheet.save_folder))
-                mkdirp.sync(config.globalPath + "/" + config.build_stylesheet.save_folder);
+        !fs.existsSync(config.components_folder) ? mkdirp.sync(config.components_folder) : null;
 
-            // fs.createReadStream(__dirname + '/lib/files_use/materialize.min.css').pipe(fs.createWriteStream(config.globalPath + "/" + config.build_stylesheet.save_folder + '/materialize.min.css'));
-            // fs.createReadStream(__dirname + '/lib/files_use/fonts.zip').pipe(unzip.Extract({ path: config.globalPath }));
+        if(!fs.existsSync(config.globalPath))
+            mkdirp.sync(config.globalPath);
 
-            fs.readFile(__dirname + "/lib/files_use/index.html", 'utf8', (err, data) =>{
-                if(err)
-                    throw err;
-                var file = data.replace(/{name_script}/gi, config.build_Script.name).replace(/{name_style}/gi, config.build_stylesheet.name);
-                fs.writeFileSync(config.globalPath + "/index.html", file);
+        if(!fs.existsSync(config.globalPath + "/" + config.build_Script.save_folder))
+            mkdirp.sync(config.globalPath + "/" + config.build_Script.save_folder);
 
-            });
+        // fs.createReadStream(__dirname + '/lib/files_use/vue.min.js').pipe(fs.createWriteStream(config.globalPath + "/" + config.build_Script.save_folder + '/vue.min.js'));
+        // fs.createReadStream(__dirname + '/lib/files_use/vue-router.min.js').pipe(fs.createWriteStream(config.globalPath + "/" + config.build_Script.save_folder + '/vue-router.min.js'));
 
-            !fs.existsSync(execdir + "/" + config.file_nameToRender) ? fs.writeFileSync(execdir + "/" + config.file_nameToRender, '//@generate with extractcomponent') : null;
+        if(!fs.existsSync(config.globalPath + "/" + config.build_stylesheet.save_folder))
+            mkdirp.sync(config.globalPath + "/" + config.build_stylesheet.save_folder);
 
+        // fs.createReadStream(__dirname + '/lib/files_use/materialize.min.css').pipe(fs.createWriteStream(config.globalPath + "/" + config.build_stylesheet.save_folder + '/materialize.min.css'));
+        // fs.createReadStream(__dirname + '/lib/files_use/fonts.zip').pipe(unzip.Extract({ path: config.globalPath }));
 
-        }
-    break;
+        fs.readFile(__dirname + "/lib/files_use/index.html", 'utf8', (err, data) =>{
+            if(err)
+                throw err;
+            var file = data.replace(/{name_script}/gi, config.build_Script.name).replace(/{name_style}/gi, config.build_stylesheet.name);
+            fs.writeFileSync(config.globalPath + "/index.html", file);
 
-    case "server":
-        var startserver = require('./lib/server.js');
-        startserver();
-    break;
+        });
 
-    default:
-        console.log("command inválid");
+        !fs.existsSync(execdir + "/" + config.file_nameToRender) ? fs.writeFileSync(execdir + "/" + config.file_nameToRender, '//@generate with extractcomponent') : null;
+    }
+}
+
+function server (args) {
+
+    let port = args[0];    
+
+    var startserver = require('./lib/server.js');
+    startserver(port);
 }
