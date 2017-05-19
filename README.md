@@ -259,7 +259,7 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
       return <div>{props.content}</div>
   }
   //1°
-  export default App; // == module.export = App;
+  export default App; // == module.export.default = App;
   //2°
   export {App, Sub};
   //3°
@@ -286,6 +286,12 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
         }
     }
   ```
+## Compactação
+  Foi Criado Um método para facilitar a compacatção dos componentes criados, por exemplo caso queira colocar tudo em um único arquivo para por em outro projeto os componentes criado .
+  Para usar este método basta rodarmos o comando `component compact filename key_crypt`, isto fará com que seja pego todos os componentes da pasta componentes configurada, e exporte para um único arquivo chamado __filename.compact__, encryptado com a chave __key_crypt__.
+  Caso queira extrair isso em outro projeto basta pegar o arquivo __filename.compact__ , colocar na pasta do projeto e rodar o seguinte comando `component descompact filename key_crypt`, isso fará a extração dos componentes contidos no arquivo , e serão a exportação deles para pasta dos componentes, com os mesmos nomes e conteúdo com que foram compactados, e a chave usada na compactação deve ser a mesma usada na descompactação.
+  >>__OBS:__ os comandos compact e descompact podem ser usados com as flags -c e -d.
+
 # Observação final
 
   Esta é uma simples ferramenta desenvolvida para estudo próprio e para facilitar nas coisas que havia feito , como recentemente com essa ferramenta construí um app para professor achei que me atenderia porque queria algo simples, espero ser de utilidade.

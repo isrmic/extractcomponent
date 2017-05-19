@@ -11,6 +11,7 @@ var execdir = process.cwd();
 
     let command = usr_arguments_cli[0];
 
+
     if(command === "new" || command === "-n")
         newComponent(usr_arguments_cli);
     else if(command === "prepare" || command === "init" || command === "-p")
@@ -19,6 +20,10 @@ var execdir = process.cwd();
         extract();
     else if(command === "server" || command === "-S" || command === "-s")
         server(usr_arguments_cli.slice(1));
+    else if(command === "compact" || command === "-c")
+        funccompdec("compact", usr_arguments_cli.slice(1));
+    else if(command === "descompact" || command === "-d")
+        funccompdec("descompact", usr_arguments_cli.slice(1));
 
 })();
 
@@ -108,9 +113,25 @@ function prepare () {
     }
 }
 
+function funccompdec (type, args) {
+
+    let compact = require('./lib/compact.js');
+    
+    if(type === "compact")
+        compact.compact(args);
+
+    else if(type === "descompact"){
+
+        if(args.length >= 2)
+            compact.descompact(args);
+        else
+            console.log('empty args or not passed all args');
+    }
+}
+
 function server (args) {
 
-    let port = args[0];    
+    let port = args[0];
 
     var startserver = require('./lib/server.js');
     startserver(port);
