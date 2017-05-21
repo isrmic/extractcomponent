@@ -137,6 +137,9 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
   * __Pug/Jade__ Você pode sem precisar usar arquivos de extensões .pug ou .jade , setar o atributo lang do template principal e dos subcomponentes para "pug" ou "jade" para escreverem componentes usando pug/jade.
 
     >__obs:__ escreva da forma correta, pois pug é baseado em identação e tem algumas regrinhas um pouco limitadoras mas é bem util , caso não conheça recomendo que leia a documentação caso queira escrever componentes com pug/jade.
+# Conjunto de componentes
+
+  Podemos fazer de uma forma diferente também quanto a importar direto um arquivo , podemos criar uma pasta com o nome do nosso componente para representa-lo e colocar um arquivo com o nome __index__(.html, .pug, .jade, .vue, .react, .jsx, .js) que será o nucleo do componente , podendo ter vários componentes dentro da pasta mas este é o que será importado, por exemplo, se tivermos um component folder `home-compo` e dentro o arquivo , `index.vue`, pode haver vários outros componentes , mas vamos importa-lo assim: `<{home-compo}/>` ou assim `import Home from {<home-compo/>}`, será carregado `index.vue` e tudo o que for importado nele .
 
 # subcomponentes
 
@@ -178,10 +181,10 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
   O conceito de extração de componente do react poderia ser bem utilizado nisto se tiver entendimento do que está fazendo.
   Note que a propriedade __name__ é atribuída como o nome do componente , com o qual será chamado depois.
 
-  * Pode-se separar os arquivos de extração , por exemplo , no arquivo de configuração a propriedade "file_nameToRender" aceita um array, e você pode especificar um pra vue outro pra react caso queira ou 2 diferentes só pra vue ou só react ex:
+  * Pode-se separar os arquivos de extração , por exemplo , no arquivo de configuração a propriedade "entry" aceita um array, e você pode especificar um pra vue outro pra react caso queira ou 2 diferentes só pra vue ou só react ex:
   ```js
     ...
-    file_nameToRender:["vuecomponent.js", "reactcomponent.js"]
+    entry:["vuecomponent.js", "reactcomponent.js"]
   ```
   Ambos serão lidos na hora da extração e No fim serão unificados para build.components.js
 
@@ -271,8 +274,14 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
   import App from "./App.jsx"
   //2° && 3°
   import { App, Sub } from "./App.jsx" // component is App && Sub
-  import App from "./App.jsx" // component is App.App && App.Sub  
+  import App from "./App.jsx" // component is App.App && App.Sub
   ```
+  Outras Formas:
+  ```js
+      <{name-compo}/>
+      //some react compo
+      let Component = <{Name}/>
+  ```  
   A importação funciona ou por nome do componente (caso importado usando {<name-component/>}) ou pelo nome do arquivo do componente , que no fim resulta no mesmo. Pode ser usado para um especifico script que você criou também como no exemplo do jsx servira pra um arquivo js também, desde que siga as instruções corretamente.
   >>OBS: este sistema de importações está em fase de estudo e foi feito para estudo , podendo conter falhas, não foi usando um pacote secundário para fazê-las.
 
@@ -290,6 +299,9 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
   Foi Criado Um método para facilitar a compacatção dos componentes criados, por exemplo caso queira colocar tudo em um único arquivo para por em outro projeto os componentes criado .
   Para usar este método basta rodarmos o comando `component compact filename key_crypt`, isto fará com que seja pego todos os componentes da pasta componentes configurada, e exporte para um único arquivo chamado __filename.compact__, encryptado com a chave __key_crypt__.
   Caso queira extrair isso em outro projeto basta pegar o arquivo __filename.compact__ , colocar na pasta do projeto e rodar o seguinte comando `component descompact filename key_crypt`, isso fará a extração dos componentes contidos no arquivo , e serão a exportação deles para pasta dos componentes, com os mesmos nomes e conteúdo com que foram compactados, e a chave usada na compactação deve ser a mesma usada na descompactação.
+
+  Faça o teste você mesmo , pegue este [exemplo](https://gist.github.com/isrmic/fb3eceb98169b0adf588addf5c5dcc6d) , pegue o arquivo __example.compact__ e coloque-o em sua pasta, faça o mesmo com o __index.html__ e rode o comando, `component -d example excomponent`, será extraído disso alguns arquivos, sete nas suas configurações em entry para __example.js__, e logo após rode o comando `component -e`, tendo feito tudo isso abra o arquivo .html que baixou e verá o resultado .
+
   >>__OBS:__ os comandos compact e descompact podem ser usados com as flags -c e -d.
 
 # Observação final

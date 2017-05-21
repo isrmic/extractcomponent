@@ -109,14 +109,14 @@ function prepare () {
 
         });
 
-        !fs.existsSync(execdir + "/" + config.file_nameToRender) ? fs.writeFileSync(execdir + "/" + config.file_nameToRender, '//@generate with extractcomponent') : null;
+        !fs.existsSync(execdir + "/" + config.entry) ? fs.writeFileSync(execdir + "/" + config.entry, '//@generate with extractcomponent') : null;
     }
 }
 
 function funccompdec (type, args) {
 
     let compact = require('./lib/compact.js');
-    
+
     if(type === "compact")
         compact.compact(args);
 
