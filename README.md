@@ -279,9 +279,14 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
   Outras Formas:
   ```js
       <{name-compo}/>
+        //output vue -> (function(){ Vue.component('name-compo', {...}) })
+       <{Compo}/>
+       //output react -> (function(_get_module){ class Compo extends React.Component {...} })
+
       //some react compo
-      let Component = <{Name}/>
-  ```  
+      let Component = <{Name}/>      
+  ```
+
   A importação funciona ou por nome do componente (caso importado usando {<name-component/>}) ou pelo nome do arquivo do componente , que no fim resulta no mesmo. Pode ser usado para um especifico script que você criou também como no exemplo do jsx servira pra um arquivo js também, desde que siga as instruções corretamente.
   >>OBS: este sistema de importações está em fase de estudo e foi feito para estudo , podendo conter falhas, não foi usando um pacote secundário para fazê-las.
 
