@@ -219,7 +219,7 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
     var script = require('path/to/script');
   ```
   (Neste caso não é bom pensar que funciona como em webpack ou demais ferramentas que usam desta syntax pois é um protótipo incompleto mas funcional em algumas coisas).
-  E pode-se importar módulos, baseando-se em que há uma variável module objeto com .exports com valor do módulo, ele procura em node_modules pelo nome do modulo dentro da pasta dist com o nome do módulo + extensão final igual a .js, caso não existir não carrega-o e pode gerar uma falha, e pode-se importar das seguintes formas:
+  E pode-se importar módulos, baseando-se em que há a exportação correta do modulo, ele procura em node_modules , ele procura pelos modulos em node_modules (do diretório do projeto) primeiro e caso não existir verifica as outras possibilidades de diretório, e pode-se importar das seguintes formas:
   ```js      
     import script from "module"
     var module = require('module');
@@ -288,6 +288,14 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
   ```
 
   A importação funciona ou por nome do componente (caso importado usando {<name-component/>}) ou pelo nome do arquivo do componente , que no fim resulta no mesmo. Pode ser usado para um especifico script que você criou também como no exemplo do jsx servira pra um arquivo js também, desde que siga as instruções corretamente.
+
+  Podemos fazer importações de scripts css que no fim serão exportados no arquivo final único de css.
+  Exemplo de uso :
+  ```js
+    import "./path/to/file.css";
+  ```
+  nisso o arquivo css que for importado, no fim da extração exportará o arquivo css confome a configuração, junto com todos os estilos criados dos componentes.
+
   >>OBS: este sistema de importações está em fase de estudo e foi feito para estudo , podendo conter falhas, não foi usando um pacote secundário para fazê-las.
 
   __Dica__: Pode ser que na hora de importar um modulo da node_modules , tenha que especificar manualmente o diretório , há duas formas de fazer isso , importando direto pelo diretório : `import Module from "node_modules/module/index.js"`, ou setando no arquivo de configuração , ficando da seguinte forma :
