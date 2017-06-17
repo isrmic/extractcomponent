@@ -130,6 +130,15 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
   * __Tag Style__
     Toda vez que é rodado o comando de extração , é lido os valores da tag style de todos os componentes da pasta de componentes e unificados em um único arquivo css que é exportado para a pasta css configurada nas configurações de extração, e se você repetir o nome de uma classe em um dos componentes , ela não vai ser sobrescrita mas sim duplicada no arquivo css exportado , e o que foi escrito na style de um componente pode ser usado chamando a classe por referencia em outro componente, neste caso a tag style tem utilidade somente para organizar melhor os componentes , não deixará nenhuma classe escrita exclusiva para o componente, então é sempre bom tomar cuidado para não cometer mancadas e escrever duas vezes a mesma classe.
 
+    ___OBS:___ Podemos usar sass e less para a compilação do seu css da seguinte forma:
+    ```html
+      <style lang = "sass">
+      </style>
+      <style lang = "less">
+      </style>
+    ```
+    Para saber o que é necessario para este recurso veja mais abaixo em [Less e Sass](#Less-e-Sass).
+
   * __Componente Objeto__
     Os componentes vue , podem ser trazidos como referencia de objeto , para se poder usar o Vue-router, por exemplo:
     ao se importar o componente nós escrevemos dessa forma -> `<{compo-vue}/>`, para se usar como objetos pode-se escrever de uma forma diferente para se usar no Vue-router -> `{ path:"/", component:<{{compo-index}}> }` , isto não funciona pra react, seria importado como da forma normal de se importar.
@@ -293,8 +302,11 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
   Exemplo de uso :
   ```js
     import "./path/to/file.css";
+    import "./path/to/file.scss";
+    import "./path/to/file.less";
   ```
   nisso o arquivo css que for importado, no fim da extração exportará o arquivo css confome a configuração, junto com todos os estilos criados dos componentes.
+  Para saber o que é necessario para este recurso veja mais abaixo em [Less e Sass](#Less-e-Sass).
 
   >>OBS: este sistema de importações está em fase de estudo e foi feito para estudo , podendo conter falhas, não foi usando um pacote secundário para fazê-las.
 
@@ -308,6 +320,13 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
         }
     }
   ```
+# Less e Sass
+  Para podermos usar less e sass é necessario fazer as instalaçoes de alguns pacotes antes, rode no seu terminal o seguinte comando:
+
+  `npm install node-sass less`
+
+  Após isso poderemos usar normalmente less e sass para gerar nosso css.
+
 ## Compactação
   Foi Criado Um método para facilitar a compacatção dos componentes criados, por exemplo caso queira colocar tudo em um único arquivo para por em outro projeto os componentes criado .
   Para usar este método basta rodarmos o comando `component compact filename key_crypt`, isto fará com que seja pego todos os componentes da pasta componentes configurada, e exporte para um único arquivo chamado __filename.compact__, encryptado com a chave __key_crypt__.
