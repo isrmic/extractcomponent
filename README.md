@@ -137,7 +137,7 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
       <style lang = "less">
       </style>
     ```
-    Para saber o que é necessario para este recurso veja mais abaixo em [Less e Sass](#Less-e-Sass).
+    Para saber o que é necessario para este recurso veja mais abaixo em [Less e Sass](#less-e-sass).
 
   * __Componente Objeto__
     Os componentes vue , podem ser trazidos como referencia de objeto , para se poder usar o Vue-router, por exemplo:
@@ -306,7 +306,7 @@ Vamos seguir alguns passos para não termos problemas (usaremos a linha de coman
     import "./path/to/file.less";
   ```
   nisso o arquivo css que for importado, no fim da extração exportará o arquivo css confome a configuração, junto com todos os estilos criados dos componentes.
-  Para saber o que é necessario para este recurso veja mais abaixo em [Less e Sass](#Less-e-Sass).
+  Para saber o que é necessario para este recurso veja mais abaixo em [Less e Sass](#less-e-sass).
 
   >>OBS: este sistema de importações está em fase de estudo e foi feito para estudo , podendo conter falhas, não foi usando um pacote secundário para fazê-las.
 
